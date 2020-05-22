@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Presentacion_introggplot2.utf8</title>
+    <meta charset="utf-8" />
+    <link href="Presentacion_introggplot2_files/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="Presentacion_introggplot2_files/remark-css-0.0.1/rladies.css" rel="stylesheet" />
+    <link href="Presentacion_introggplot2_files/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <link href="Presentacion_introggplot2_files/font-awesome-5.3.1/css/fontawesome-all.min.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+
+class: middle
+
+&lt;style type="text/css"&gt;
+.silver{color: silver;}
+.gray{color: darkgray;}
+&lt;/style&gt;
+
+&lt;!-- &lt;div class="my-footer"&gt;&lt;span&gt;text&lt;/span&gt;&lt;/div&gt;
+--&gt;
+
+.pull-left[
+# Taller Introductorio a `ggplot2`
+## RLadies Chile
+### .gray[Aprendamos sobre visualización y el uso del paquete ggplot2]
+### .gray[Gabriela Sandoval]
+[<i class="fab  fa-twitter "></i>@gabysandovalm](http://twitter.com/gabysandovalm)  
+[<i class="fab  fa-github "></i> @gabysandovalm](http://github.com/gabysandovalm)
+
+]
+
+.pull-right[
+.center[
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+![](images/ggplot.png)
+]]
+
+---
+class: middle
+# Sobre el taller
+![](images/ciclovis.png)
+&lt;small&gt;Ilustración por: Allison Horst, adaptación de: [R4DS](https://r4ds.had.co.nz/explore-intro.html)&lt;/small&gt;
+
+---
+class: middle
+# ¿Qué es necesario para este taller?
+
+- Conocer sobre R y RStudio.
+- Tener una cuenta en **RStudio Cloud** (si desean acceder al ejercicio para volver a hacerlo).
+- Tener ganas de aprender sobre visualización.
+
+## Objetivo: 
+&gt;Hablar sobre visualización de datos y la lógica de funcionamiento de `ggplot2` y por supuesto construir algunos gráficos. <i class="fas  fa-rocket "></i>
+
+---
+class: middle, inverse
+# Visualización de datos
+
+---
+# ¿Por qué hacemos visualizaciones de datos?
+--
+
+Visualizamos para:
+
+--
+
+- Expresar
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="images/historia.png" alt="Pintura rupestre" width="70%" /&gt;
+&lt;p class="caption"&gt;Pintura rupestre&lt;/p&gt;
+&lt;/div&gt;
+
+---
+# ¿Por qué hacemos visualizaciones de datos?
+
+
+Visualizamos para:
+
+
+
+- Comunicar
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="images/playfair.png" alt="William Playfair (1786) El Atlas Comercial y Político: Representando el progreso del comercio, ingresos, gastos y deudas de Inglaterra durante todo el siglo XVIII." width="70%" /&gt;
+&lt;p class="caption"&gt;William Playfair (1786) El Atlas Comercial y Político: Representando el progreso del comercio, ingresos, gastos y deudas de Inglaterra durante todo el siglo XVIII.&lt;/p&gt;
+&lt;/div&gt;
+
+---
+# ¿Por qué hacemos visualizaciones de datos?
+
+
+Visualizamos para:
+
+
+
+- Transmitir el significado de los datos 
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="images/rosaflorence.jpg" alt="Diagrama de la rosa de Florence Nightingale, sirvió para determinar que la principal causa de muerte de los soldados durante la guerra de Crimea, era falta de higiene en los hospitales." width="70%" /&gt;
+&lt;p class="caption"&gt;Diagrama de la rosa de Florence Nightingale, sirvió para determinar que la principal causa de muerte de los soldados durante la guerra de Crimea, era falta de higiene en los hospitales.&lt;/p&gt;
+&lt;/div&gt;
+
+---
+class: inverse center
+
+## Al realizar visualizaciones de datos tenemos un gran poder en nuestras manos.
+
+--
+&lt;img src="images/pinera1.jpg" width="70%" style="display: block; margin: auto;" /&gt;
+
+---
+class: inverse center
+
+## Al realizar visualizaciones de datos tenemos un gran poder en nuestras manos.
+
+&lt;img src="images/tioben.jpg" width="70%" style="display: block; margin: auto;" /&gt;
+
+---
+background-image: url(images/patri.png)
+background-size: 50%
+background-position: 90% 50%
+
+# Características de una buena visualizacion de datos
+
+.pull-left[
++ Que sea agradable a la vista
+
++ Que sea funcional 
+
++ Que muestre hallazgos
+
++ Que esté basada en datos confiables, es decir, que transmita la verdad.
+]
+
+.pull.right[
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+]
+
+&lt;small&gt;**Nota:** Esta visualización fue realizada por Patricia Loto y en este [LINK](https://github.com/PatriLoto/viz-datos-con-ggplot2-para-WIDS2020/blob/master/material/PRESENTACION_WIDS2020.pdf) pueden encontrar una presentación muy completa sobre aspectos relacionados a visualización de datos.&lt;/small&gt;
+
+---
+# Elementos de una visualización
+
+--
+
+### .gray[1) Señales visuales]
+
+--
+
+### .gray[2) Sistema de coordenadas]
+
+--
+
+### .gray[3) Escalas]
+
+--
+
+### .gray[4) Contexto]
+
+--
+
+&lt;img src="images/patri2.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+&lt;small&gt;
+Diagrama por Patricia Loto en base a [Data points visualizations that means something.](https://www.amazon.es/Data-Points-Visualization-Means-Something/dp/111846219X)&lt;/smal&gt;
+
+---
+background-image: url(images/visualizacion.jpg)
+background-size: cover
+class: center,top
+#**¿Qué herramientas usar para generar visualizaciones de datos?**
+
+---
+background-image: url(images/ggplot.png)
+background-size: 35%
+background-position: 50%,50%
+class: inverse
+
+---
+background-image: url(images/ggplot.png), url(images/tidy.png)
+background-size: 10%, 10%
+background-position: 80% 10%, 93% 10%
+class: middle
+
+.center[# Paquete `ggplot2`]
+
+- Es un paquete de `R` para crear gráficos de forma **declarativa**.
+
+- Proporcionamos los datos y luego le decimos cómo mapear las variables (estéticas/**aesthetics**), qué tipo de gráfica (geometría/**geom**) usar y detalles adicionales.
+
+- Fue desarrollado por [Hadley Wickham](https://github.com/hadley) (2008) y está basado en [The Grammar of Graphics.](https://www.amazon.com/Grammar-Graphics-Statistics-Computing/dp/0387245448/ref=as_li_ss_tl?ie=UTF8&amp;qid=1477928463&amp;sr=8-1&amp;keywords=the+grammar+of+graphics&amp;linkCode=sl1&amp;tag=ggplot2-20&amp;linkId=f0130e557161b83fbe97ba0e9175c431)
+
+- Es parte de la colección de paquetes para Ciencia de Datos [Tidyverse](https://www.tidyverse.org/).
+
+
+
+```r
+#Para instalar (todo tidyverse incluido ggplot2)
+install.packages("tidyverse")
+
+#Para instalar solo ggplot2
+install.packages("ggplot2")
+```
+
+---
+# Gramática de los gráficos y capas
+
+Un objeto ggplot requiere:
+- Datos
+- Estéticas de mapeo (**aesthetics**) de las variables y sus propiedades visuales.
+- Al menos una **capa** que indique la forma en que se representarán los datos (**geom**).
+
+### Datos
+
+Vamos a usar el set de datos `millas` del paquete `datos` que contiene observaciones para 38 modelos de automóviles recopiladas por la Agencia de Protección Ambiental de los EE. UU.
+
+
+```r
+#install.packages("remotes")
+remotes::install_github("cienciadedatos/datos")
+library(datos)
+```
+---
+class: middle
+
+```r
+library(datos)
+str(millas)
+```
+
+```
+## Classes 'tbl_df', 'tbl' and 'data.frame':	234 obs. of  11 variables:
+##  $ fabricante : chr  "audi" "audi" "audi" "audi" ...
+##  $ modelo     : chr  "a4" "a4" "a4" "a4" ...
+##  $ cilindrada : num  1.8 1.8 2 2 2.8 2.8 3.1 1.8 1.8 2 ...
+##  $ anio       : int  1999 1999 2008 2008 1999 1999 2008 1999 1999 2008 ...
+##  $ cilindros  : int  4 4 4 4 6 6 6 4 4 4 ...
+##  $ transmision: chr  "auto(l5)" "manual(m5)" "manual(m6)" "auto(av)" ...
+##  $ traccion   : chr  "d" "d" "d" "d" ...
+##  $ ciudad     : int  18 21 20 21 16 18 18 18 16 20 ...
+##  $ autopista  : int  29 29 31 30 26 26 27 26 25 28 ...
+##  $ combustible: chr  "p" "p" "p" "p" ...
+##  $ clase      : chr  "compacto" "compacto" "compacto" "compacto" ...
+```
+
+---
+
+### Tenemos los datos... empecemos a sentirnos artistas.
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="images/art.png" alt="Ilustración por Allison Horst" width="60%" /&gt;
+&lt;p class="caption"&gt;Ilustración por Allison Horst&lt;/p&gt;
+&lt;/div&gt;
+
+
+
+Iniciamos el gráfico con la función: `ggplot()`.
+
+
+```r
+ggplot(data=millas)
+```
+
+---
+### Capas
+.pull-left[
+&lt;br&gt;
+&lt;br&gt;
+Cada capa se agrega con un signo +. Por ejemplo, `geom_point()` agrega una capa de puntos al gráfico. En cada geom podemos incluir el argumento `mapping` (que se empareja con `aes()`) en donde indicamos las variables que vamos a "mapear".
+]
+
+.pull-right[
+&lt;img src="Presentacion_introggplot2_files/figure-html/unnamed-chunk-14-1.png" width="504" /&gt;
+]
+
+```r
+*ggplot(data = &lt;DATOS&gt;) +
+*  &lt;GEOM_FUNCIÓN&gt;(mapping = aes(&lt;MAPEOS&gt;))
+```
+
+
+```r
+ggplot(data = millas) +
+  geom_point(mapping = aes(x = cilindrada, y = autopista))
+```
+
+
+---
+class:middle
+### ¿Cómo cambiar/incluir más estéticas en mi gráfica?
+
+.pull-left[
+
+#### Cambiar el color de los puntos:
+Cambiamos la estética, pero **no** añadimos información adicional. El argumento `color` va dentro de la función `geom_point()`.
+]
+
+.pull-right[
+&lt;img src="Presentacion_introggplot2_files/figure-html/unnamed-chunk-17-1.png" width="504" /&gt;
+]
+
+
+```r
+ggplot(data = millas) +
+*  geom_point(mapping = aes(x = cilindrada, y = autopista),color="blue")
+```
+
+---
+class: middle
+
+.pull-left[
+#### Diferenciar los puntos según la variable `clase`:
+Cambiamos la estética y añadimos información adicional. El argumento `color` va dentro de la función `aes()`.
+]
+
+.pull-right[
+&lt;img src="Presentacion_introggplot2_files/figure-html/unnamed-chunk-19-1.png" width="504" /&gt;
+]
+
+
+```r
+ggplot(data = millas) +
+*  geom_point(mapping = aes(x = cilindrada, y = autopista,color=clase))
+```
+
+
+---
+### ¿Qué pasa si colocamos el argumento `mapping`  en `ggplot()`?
+
+
+```r
+ggplot(data = millas,mapping = aes(x = traccion, y = autopista)) +
+  geom_point()
+```
+
+--
+
+.pull-left[
+Colocar `mapping` como argumento en una función `geom_()` hace que esas estéticas se reconozcan como locales. Colocar `mapping` en `ggplot()` conserva esa información en todas las capas.  Con eso podríamos ahorrarnos algo de código. 
+]
+
+.pull-right[
+&lt;img src="Presentacion_introggplot2_files/figure-html/unnamed-chunk-22-1.png" width="504" /&gt;
+]
+
+
+---
+
+###.gray[Veamos un ejemplo:]
+
+
+```r
+*ggplot(data = millas,mapping = aes(x = cilindrada, y = autopista)) +
+  geom_point() +
+  geom_smooth()
+```
+
+.pull-left[
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+Con esto se conservan las mismas variables de mapeo en todas capas que agregamos. No debemos volver a escribir `mapping = aes(x = cilindrada, y = autopista)` en cada función `geom_()`.
+]
+
+.pull-right[
+&lt;img src="Presentacion_introggplot2_files/figure-html/unnamed-chunk-24-1.png" width="504" /&gt;
+]
+
+---
+## Facetas
+
+Para dividir un gráfico en sub gráficos (facetas) tenemos las funciones `facet_grid()` y `facet_wrap()`.
+
+
+Usemos la variable `traccion` para crear sub gráficos para cada tipo de tracción.
+
+Pero primero podemos guardar en un objeto llamado `p` la función `ggplot()` con las estéticas declaradas para luego ir sumando capas:
+
+
+```r
+p &lt;- ggplot(data = millas,mapping = aes(x = cilindrada, y = autopista))
+```
+
+---
+
+.pull-left[
+
+```r
+p + 
+   geom_point() +
+   geom_smooth() +
+*  facet_grid(.~ traccion)
+```
+]
+
+.pull-right[
+&lt;img src="Presentacion_introggplot2_files/figure-html/unnamed-chunk-27-1.png" width="504" /&gt;
+]
+
+Este esquema nos explica bien las diferentes formas de usar `facet_grid()` y `facet_wrap()`: 
+
+&lt;img src="images/facetas.png" width="35%" style="display: block; margin: auto;" /&gt;
+
+---
+## Temas
+
+También podemos usar temas predeterminados para agregar personalizaciones a nuestros gráficos.
+
+.pull-left[
+
+```r
+p + 
+   geom_point() +
+   geom_smooth() +
+   facet_grid(.~ traccion) + 
+*   theme_bw()
+```
+]
+
+.pull-right[
+&lt;img src="Presentacion_introggplot2_files/figure-html/unnamed-chunk-30-1.png" width="504" /&gt;
+]
+
+---
+## Transformaciones estadísticas
+
+Ahora usemos un `geom_bar()` para visualizar el número total de autos según las categorías de la variable `clase`.
+
+Por defecto, con `geom_bar()` ggplot nos muestra el total de cada categoría.
+
+
+```r
+ggplot(data = millas) +
+*  geom_bar(mapping=aes(x=clase))
+```
+
+&lt;img src="Presentacion_introggplot2_files/figure-html/unnamed-chunk-32-1.png" width="40%" style="display: block; margin: auto;" /&gt;
+
+---
+
+### .gray[¿Cómo hacemos si en lugar del total de cada categoría quiero la proporción?]
+
+Usamos una trasformación estadística para el eje y:
+
+```r
+ggplot(data = millas) +
+*  geom_bar(mapping = aes(x = clase, y = stat(prop)))
+```
+
+
+&lt;img src="Presentacion_introggplot2_files/figure-html/unnamed-chunk-34-1.png" width="40%" style="display: block; margin: auto;" /&gt;
+
+¡Pero todas las barras tienen la misma altura!
+
+---
+
+En este caso es necesario especificar un argumento adicional en la función `aes()`. Con `group=1` hacemos que la proporción se calcule respecto a todos los datos y no respecto a cada categoría.
+
+
+```r
+ggplot(data = millas) +
+*  geom_bar(mapping = aes(x = clase, y = stat(prop),group=1))
+```
+
+
+&lt;img src="Presentacion_introggplot2_files/figure-html/unnamed-chunk-36-1.png" width="40%" style="display: block; margin: auto;" /&gt;
+
+---
+### .gray[¿Qué tal si quiero cambiar el orden de mis categorías?]
+
+Para ordenar una forma sencilla es usar la función `fct_infreq()` del paquete `forcats` en la variable clase:
+
+
+```r
+ggplot(data = millas) +
+*  geom_bar(mapping=aes(x=forcats::fct_infreq(clase)))
+```
+
+&lt;img src="Presentacion_introggplot2_files/figure-html/unnamed-chunk-38-1.png" width="40%" style="display: block; margin: auto;" /&gt;
+
+---
+Pongamos un poco de color también, esta vez con el argumento `fill`:
+
+
+```r
+ggplot(data = millas) +
+*  geom_bar(mapping=aes(x=forcats::fct_infreq(clase)),fill="blue")
+```
+
+&lt;img src="Presentacion_introggplot2_files/figure-html/unnamed-chunk-40-1.png" width="40%" style="display: block; margin: auto;" /&gt;
+¡Pero el nombre del eje x cambió!
+---
+
+Cambiemos también el nombre del eje x con `xlab()`:
+
+
+
+```r
+ggplot(data = millas) +
+  geom_bar(mapping=aes(x=forcats::fct_infreq(clase)),fill="blue")+
+* xlab("Clase")      
+```
+
+&lt;img src="Presentacion_introggplot2_files/figure-html/unnamed-chunk-42-1.png" width="40%" style="display: block; margin: auto;" /&gt;
+
+---
+###.gray[¿Y si quiero que cada barra tenga un color distinto?]
+
+Podemos usar la variable `clase` en el argumento `fill` pero esta vez dentro de la función `aes()`.
+
+
+```r
+ggplot(data = millas) +
+*  geom_bar(mapping=aes(x=forcats::fct_infreq(clase),fill=clase))+
+   xlab("Clase")      
+```
+
+&lt;img src="Presentacion_introggplot2_files/figure-html/unnamed-chunk-44-1.png" width="40%" style="display: block; margin: auto;" /&gt;
+
+Pero este gráfico es redundante porque la información de la leyenda es la misma que tenemos en el eje x.
+
+---
+
+Para quitar la leyenda usamos el argumento `show.legend = FALSE` dentro de la función `geom_()`
+
+
+```r
+ggplot(data = millas) +
+*  geom_bar(mapping=aes(x=forcats::fct_infreq(clase),fill=clase),show.legend = FALSE)+
+  xlab("Clase")      
+```
+
+&lt;img src="Presentacion_introggplot2_files/figure-html/unnamed-chunk-46-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+
+---
+### .gray[¿Visualizar un resumen estadístico?]
+
+También podemos visualizar un resumen estadístico. Por ejemplo visualicemos el mínimo, máximo y mediana de la variable `autopista` para cada categoría de `clase` usando `stat_summary()`:
+
+
+```r
+ggplot(data = millas) +
+*  stat_summary(
+    mapping = aes(x = clase, y = autopista),
+    fun.min = min,
+    fun.max = max,
+    fun = median
+  )
+```
+
+&lt;img src="Presentacion_introggplot2_files/figure-html/unnamed-chunk-48-1.png" width="30%" style="display: block; margin: auto;" /&gt;
+
+---
+class: inverse, center, middle
+
+## Y con eso tienes una base para introducirte al increíble mundo de la visualización de datos <i class="fas  fa-rocket "></i>
+
+---
+class: middle, inverse
+
+## Recursos recomendados:
+
++ [Cheatsheet de ggplot2 en español](https://rstudio.com/wp-content/uploads/2016/12/ggplot2-cheatsheet-2.1-Spanish.pdf)
+
++ [Libro de ggplot](https://www.amazon.es/ggplot2-Elegant-Graphics-Data-Analysis/dp/0387981403)
+
++ Capítulo 3 y 28 de R para [Ciencia de Datos](https://es.r4ds.hadley.nz/visualizaci%C3%B3n-de-datos.html#sistemas-de-coordenadas) (este taller esta basado en el libro).
+
++ [Página web de ggplot](https://ggplot2.tidyverse.org/index.html)
+
++ [Taller de visualización de datos de Patricia Loto](https://github.com/PatriLoto/viz-datos-con-ggplot2-para-WIDS2020) (incluye más recomendaciones a material y comunidades)
+
++ [Data Visualization in R por Emi Tanaka](https://emitanaka.org/workshopUTokyo2018/day1-session02-datavis.html#1)
+
++ [A ggplot2 Tutorial for Beautiful Plotting in R por Cedric Schere](https://cedricscherer.netlify.app/2019/08/05/a-ggplot2-tutorial-for-beautiful-plotting-in-r/)
+
++ [Workshop de ggplot por Thomas Lin Pedersen](https://www.youtube.com/channel/UCT9SgxpakGSH-yfRj_QhzIQ
+)
+
+
+---
+class: inverse, center, middle
+
+## ¡Muchas gracias por venir hoy!
+.center[
+![](https://media.giphy.com/media/crpEBn4lPYLkY/giphy.gif)
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightLines": true,
+"slide-level": 2,
+"center": true
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  /* Replace <script> tags in slides area to make them executable
+   *
+   * Runs after post-processing of markdown source into slides and replaces only
+   * <script>s on the last slide of continued slides using the .has-continuation
+   * class added by xaringan. Finally, any <script>s in the slides area that
+   * aren't executed are commented out.
+   */
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container:not(.has-continuation) script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+  var scriptsNotExecuted = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container.has-continuation script'
+  );
+  if (!scriptsNotExecuted.length) return;
+  for (var i = 0; i < scriptsNotExecuted.length; i++) {
+    var comment = document.createComment(scriptsNotExecuted[i].outerHTML)
+    scriptsNotExecuted[i].parentElement.replaceChild(comment, scriptsNotExecuted[i])
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
